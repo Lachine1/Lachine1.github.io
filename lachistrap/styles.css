@@ -1,0 +1,23 @@
+body {
+    background-color: #28282B;
+    font-family: Arial, Helvetica, sans-serif;
+    color: floralwhite
+}
+h1 {
+    font-size: 43px;
+}
+.purple-gradient {
+    background: linear-gradient(90deg,rgba(80, 60, 117, 1) 0%, rgba(25, 8, 51, 1) 100%);
+    background-clip: text;
+    color: transparent;
+    display: inline;
+}
+.bold {
+    font-weight: bold;
+}
+button {
+    background-color: rgb(32, 32, 32);
+    border-radius: 15%;
+    width: 3cm;
+    height: 2cm
+}
