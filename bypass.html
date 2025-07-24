@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16 Pixel Random Gray Background</title>
+    <style>
+        /* CSS styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            /* A fallback background color in case JavaScript is disabled */
+            background-color: #f0f0f0; 
+        }
+
+        #pixel-grid {
+            /* This container will hold our 16 pixels */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            /* Use CSS Grid to create a 4x4 layout */
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 columns of equal fraction */
+            grid-template-rows: repeat(4, 1fr);    /* 4 rows of equal fraction */
+
+            /* Set the overall opacity of the grid container to 75% */
+            opacity: 0.75;
+
+            /* Place the grid behind the main content */
+            z-index: -1; 
+        }
+
+        .pixel {
+            /* Each pixel will be a grid item */
+            width: 100%;
+            height: 100%;
+            /* Add a transition for a smoother color change effect */
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        .content {
+            /* This is where your page content goes */
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 50px;
+            color: #000;
+            /* Add a subtle text shadow to improve readability over dark/light backgrounds */
+            text-shadow: 0 0 8px white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- The container for our background pixels (will be populated by JavaScript) -->
+    <div id="pixel-grid"></div>
+
+    <!-- Your web app content goes here -->
+    <div class="content">
+        <h1>16 Pixel Background</h1>
+        <p>Each of the 16 background "pixels" changes to a random shade of gray every 5 seconds.</p>
+    </div>
+
+    <script>
+        // JavaScript logic
+        const gridContainer = document.getElementById('pixel-grid');
+        const numberOfPixels = 16;
+        
+        // 1. Create the 16 pixel divs and add them to the grid
+        for (let i = 0; i < numberOfPixels; i++) {
+            const pixel = document.createElement('div');
+            pixel.classList.add('pixel');
+            gridContainer.appendChild(pixel);
+        }
+
+        // 2. A function to set a random gray color for every pixel
+        function updatePixelColors() {
+            const pixels = document.querySelectorAll('.pixel');
+            
+            pixels.forEach(pixel => {
+                // Generate a random number between 0 and 255
+                const randomGrayValue = Math.floor(Math.random() * 256);
+                // Create an rgb color string. For a shade of gray, red, green, and blue are the same.
+                const randomGrayColor = `rgb(${randomGrayValue}, ${randomGrayValue}, ${randomGrayValue})`;
+                // Apply the new color to the pixel
+                pixel.style.backgroundColor = randomGrayColor;
+            });
+        }
+
+        // 3. Run the function every 5000 milliseconds (5 seconds)
+        setInterval(updatePixelColors, 5000);
+
+        // 4. Set the initial colors when the page first loads
+        updatePixelColors();
+    </script>
+
+</body>
+</html>
